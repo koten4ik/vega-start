@@ -55,8 +55,8 @@ class ATempCommand
     public function execute($request)
     {
         //if (UserRoleService::isAdmin(Auth::user()) === false) abort(405);
-        //Log::info('asd');
-        echo 12344778;
+
+        //todo добавить модули юзера и настроить мейлер
 
     }
 

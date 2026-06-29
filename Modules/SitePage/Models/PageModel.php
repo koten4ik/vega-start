@@ -13,7 +13,7 @@ class PageModel extends VegaModel
 
     protected $fillable = [
         'name',
-        'url',
+        'slug',
         'text',
         'domain',
         'module',
@@ -35,7 +35,7 @@ class PageModel extends VegaModel
 
     public function getUrl()
     {
-        $url = $this->url;
+        $url = $this->slag;
         if ($this->module == 'index') $url = '';
 
         return request()->getSchemeAndHttpHost() . '/' . $url;

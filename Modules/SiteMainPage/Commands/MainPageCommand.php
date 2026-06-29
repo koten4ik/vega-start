@@ -27,7 +27,7 @@ class MainPageCommand
 
         $path = '/' . ltrim($request->path(), '/');
         $page = PageModel::query()
-            ->where('url', $path)
+            ->where('slug', $path)
             ->first();
 
 
