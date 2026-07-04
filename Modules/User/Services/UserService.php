@@ -73,19 +73,4 @@ class UserService
     {
         return preg_match('/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/', $value);
     }
-
-    public function refCode(UserModel $user): string
-    {
-        $secret = env('SSO_SECRET'); // ВАЖНО: одинаковый на обоих сайтах
-
-        $signature = hash_hmac('sha256', $user->id, $secret);
-
-        // берем только часть подписи (например 6 байт)
-        $shortSig = substr($signature, 0, 12);
-
-        $data = $user->id . '-' . $shortSig;
-
-        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
-    }
-
 }

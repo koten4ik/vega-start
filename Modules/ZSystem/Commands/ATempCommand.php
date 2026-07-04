@@ -57,7 +57,8 @@ class ATempCommand
         //if (UserRoleService::isAdmin(Auth::user()) === false) abort(405);
 
         //todo добавить модули юзера и настроить мейлер
-
+        //todo добавить филамент
+        //todo расширить инстркции клауда
     }
 
 }
