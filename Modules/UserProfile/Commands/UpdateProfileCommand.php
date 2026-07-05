@@ -24,7 +24,6 @@ class UpdateProfileCommand
             $user->avatar = $request->file('avatar')->store('avatars', 'public');
         }
 
-
         $user->save();
 
         return true;
