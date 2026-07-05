@@ -1,8 +1,11 @@
 @extends('layouts.main')
 
+@push('styles')
+    <link rel="stylesheet" href="{{\Modules\ZSupport\App\Helpers\H::mtimeFix('/css/errors.css')}}"/>
+@endpush
 
 @section('content')
-    <div class="page-404">
+    <div class="container-fluid page-404">
 
         <div class="page-404__content">
             <div class="page-404__code">
@@ -16,5 +19,3 @@
 
     </div>
 @endsection
-
-

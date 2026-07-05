@@ -1,0 +1,16 @@
+.page-404 {
+    text-align: center;
+}
+
+.page-404__code {
+    font-size: 96px;
+    font-weight: 700;
+    color: #2f6feb;
+    line-height: 1;
+}
+
+.page-404__text {
+    font-size: 20px;
+    color: #444;
+    margin-top: 16px;
+}
