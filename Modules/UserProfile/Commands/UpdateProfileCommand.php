@@ -10,11 +10,12 @@ class UpdateProfileCommand
     public function execute($request): bool
     {
         $user = Auth::user();
+        $data = $request->validated();
 
-        $user->name = $request->validated()['name'];
-        $user->login = $request->validated()['login'];
-        $user->email = $request->validated()['email'];
-        $user->profile_phone = $request->validated()['profile_phone'] ?? null;
+        $user->name = $data['name'];
+        $user->login = $data['login'];
+        $user->email = $data['email'];
+        $user->profile_phone = $data['profile_phone'] ?? null;
 
         if ($request->hasFile('avatar')) {
             if ($user->avatar) {

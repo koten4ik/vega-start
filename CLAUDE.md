@@ -117,6 +117,26 @@ public function execute()
 ```
 Во вьюхе используется `$profile['name']`, а не `$user->name`.
 
+**Без route-model-binding** — в контроллер параметр роута приходит как обычное значение (id, slug), а не через тайп-хинт модели (это заставляет Laravel неявно резолвить модель). Модель из БД достаёт сама Command:
+```php
+// Route: /product/{slug}
+public function productPage($slug, ViewProductCommand $viewProductCommand)
+{
+    return $this->render($this->getModuleName() . '::product', $viewProductCommand->execute($slug));
+}
+```
+```php
+class ViewProductCommand
+{
+    public function execute($slug)
+    {
+        $product = ProductModel::where('slug', $slug)->firstOrFail();
+        // ...
+    }
+}
+```
+Так же для id: `public function successPage($orderId, ViewOrderCommand $command)`, а внутри команды — `OrderModel::findOrFail($orderId)`.
+
 **Blade-имя** — формат `ModuleName::file_name` (без папки Views, Laravel резолвит сам через сервис-провайдер).
 
 ### VegaController
@@ -126,6 +146,10 @@ public function execute()
 - `$this->render($view, $data)` — рендер blade с автоматической передачей `meta`, `site_data`, `system`, csrf.
 - `$this->sendResponse($data)` — JSON-ответ.
 - `$this->getModuleName()` — возвращает имя модуля из namespace контроллера.
+
+## Проверка
+
+После каждого изменения/создания PHP-файла — сразу и молча (без вопроса на это пользователю) прогонять `php -l` на изменённый файл, а где применимо — реальный тест (рендер вьюхи, выполнение команды и т.п. через `artisan tinker`). Не спрашивать разрешения на запуск проверки/теста — это часть обычного рабочего процесса, а не отдельное действие, требующее подтверждения.
 
 ## Git
 
@@ -137,6 +161,7 @@ public function execute()
 - Не использовать `view()` напрямую в контроллерах — только `$this->render()`.
 - Не писать бизнес-логику в контроллерах — выносить в Commands.
 - Не передавать Eloquent-модель напрямую во вьюху — преобразовывать через `*ViewModel::data()`.
+- Не использовать implicit route-model-binding (тайп-хинт модели в параметре метода контроллера) — контроллер получает id/slug, Command сам делает `Model::findOrFail()`.
 - Не создавать файлы вне `Modules/` (кроме `public/css/`, `public/js/`, `routes/web.php` при крайней необходимости).
 
 ## Именование

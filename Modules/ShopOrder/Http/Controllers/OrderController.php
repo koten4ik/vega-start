@@ -7,7 +7,6 @@ use Modules\ShopOrder\Commands\CreateOrderCommand;
 use Modules\ShopOrder\Commands\ViewOrderCommand;
 use Modules\ShopOrder\Commands\ViewOrdersCommand;
 use Modules\ShopOrder\Http\Requests\CreateOrderRequest;
-use Modules\ShopOrder\Models\OrderModel;
 use Modules\ZSupport\App\Controllers\VegaController;
 
 class OrderController extends VegaController
@@ -26,9 +25,9 @@ class OrderController extends VegaController
         return redirect(route('shop.order.success', $order->id));
     }
 
-    public function successPage(OrderModel $order, ViewOrderCommand $viewOrderCommand)
+    public function successPage($orderId, ViewOrderCommand $viewOrderCommand)
     {
-        return $this->render($this->getModuleName() . '::success', $viewOrderCommand->execute($order));
+        return $this->render($this->getModuleName() . '::success', $viewOrderCommand->execute($orderId));
     }
 
     public function ordersPage(ViewOrdersCommand $viewOrdersCommand)

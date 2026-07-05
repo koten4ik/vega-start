@@ -7,7 +7,7 @@ Route::get('/checkout', [OrderController::class, 'checkoutPage'])
     ->name('shop.order.checkoutPage');
 Route::post('/checkout', [OrderController::class, 'store'])
     ->name('shop.order.create');
-Route::get('/checkout/success/{order}', [OrderController::class, 'successPage'])
+Route::get('/checkout/success/{orderId}', [OrderController::class, 'successPage'])
     ->name('shop.order.success');
 
 Route::middleware('auth')->group(function () {

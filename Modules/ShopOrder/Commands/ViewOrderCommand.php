@@ -7,8 +7,10 @@ use Modules\ShopOrder\ViewModels\OrderViewModel;
 
 class ViewOrderCommand
 {
-    public function execute(OrderModel $order)
+    public function execute($orderId)
     {
+        $order = OrderModel::findOrFail($orderId);
+
         return [
             'order' => OrderViewModel::data($order),
         ];
