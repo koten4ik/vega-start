@@ -261,6 +261,88 @@ a {
     cursor: pointer;
 }
 
+/*============= общие формы/кнопки ===========*/
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background: #eee;
+    color: #222;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .15s ease, opacity .15s ease;
+}
+
+.btn:hover {
+    opacity: .85;
+}
+
+.btn-primary {
+    background: #2f6feb;
+    color: #fff;
+}
+
+button[type="submit"],
+input[type="submit"] {
+    display: inline-block;
+    padding: 9px 18px;
+    border: none;
+    border-radius: 6px;
+    background: #2f6feb;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+    background: #2559c4;
+}
+
+.form-group {
+    margin-bottom: 16px;
+    max-width: 420px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #444;
+}
+
+.form-required {
+    color: #d33;
+}
+
+.form-control {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #2f6feb;
+}
+
+.input-error {
+    border-color: #d33 !important;
+    background: #fff5f5;
+}
+
+.text-error {
+    display: block;
+    color: #d33;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
 /*============= site header/footer ===========*/
 body {
     margin: 0;

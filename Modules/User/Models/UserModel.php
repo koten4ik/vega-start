@@ -16,11 +16,10 @@ use Modules\MlmBinary\Models\BinaryMlmModel;
 use Modules\MlmNetwork\Models\NetworkMlmModel;
 use Modules\User\Enums\UserGender;
 use Modules\ZSupport\App\Models\Country;
-use Spatie\Permission\Traits\HasRoles;
 
 class UserModel extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable;
 
     protected $table = 'users';
     const STATUS_NOACTIVE = 0;

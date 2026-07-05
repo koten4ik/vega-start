@@ -11,7 +11,7 @@ class UserRoleService
 {
 	public static function isAdmin($user)
 	{
-		return $user && $user->hasRole('admin');
+		return $user && method_exists($user, 'hasRole') && $user->hasRole('admin');
 	}
 
 }

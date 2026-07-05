@@ -1,14 +1,13 @@
 <?php
 
-namespace Modules\UserAccountRegister\Http\Requests;
+namespace Modules\UserProfile\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\User\Rules\UserEmailRule;
 use Modules\User\Rules\UserLoginRule;
 use Modules\User\Rules\UserNameRule;
-use Modules\User\Rules\UserPasswordRule;
 
-class RegisterRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     public function rules()
     {
@@ -25,20 +24,14 @@ class RegisterRequest extends FormRequest
                 'required',
                 new UserEmailRule(),
             ],
-            'password' => [
-                'required',
-                new UserPasswordRule(),
-            ],
-            'password_repeat' => [
-                'required',
-                'same:password',
-            ],
             'profile_phone' => [
-                'required',
+                'nullable',
                 'digits:11',
             ],
-            'agreement' => [
-                'accepted',
+            'avatar' => [
+                'nullable',
+                'image',
+                'max:2048',
             ],
         ];
     }
@@ -46,7 +39,9 @@ class RegisterRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'profile_phone' => preg_replace('/\D/', '', (string)$this->profile_phone),
+            'profile_phone' => $this->profile_phone !== null
+                ? preg_replace('/\D/', '', $this->profile_phone)
+                : null,
         ]);
     }
 
@@ -56,12 +51,9 @@ class RegisterRequest extends FormRequest
             'name.required' => 'Укажите имя',
             'login.required' => 'Укажите логин',
             'email.required' => 'Укажите Email',
-            'password.required' => 'Укажите пароль',
-            'password_repeat.required' => 'Повторите пароль',
-            'password_repeat.same' => 'Пароли не совпадают',
-            'profile_phone.required' => 'Укажите номер телефона',
             'profile_phone.digits' => 'Некорректный номер телефона',
-            'agreement.accepted' => 'Необходимо согласие на обработку персональных данных',
+            'avatar.image' => 'Аватар должен быть изображением',
+            'avatar.max' => 'Максимальный размер файла: 2 Мб',
         ];
     }
 }

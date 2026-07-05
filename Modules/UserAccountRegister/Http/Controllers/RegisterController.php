@@ -21,7 +21,7 @@ class RegisterController extends VegaController
     public function registerStore(RegisterRequest $request, RegisterUserCommand $registerUserCommand)
     {
 		$registerUserCommand->execute($request);
-        return redirect(route('user.profile.page'));
+        return redirect(route('user.cabinet'));
     }
 
 }
