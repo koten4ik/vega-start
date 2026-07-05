@@ -11,11 +11,11 @@
 
         @forelse($orders as $order)
             <div class="shop-orders__item">
-                <a href="{{ route('shop.order.success', $order->id) }}">
-                    Заказ №{{ $order->id }} от {{ $order->created_at->format('d.m.Y') }}
+                <a href="{{ route('shop.order.success', $order['id']) }}">
+                    Заказ №{{ $order['id'] }} от {{ $order['created_at'] }}
                 </a>
-                — {{ $order->status->label() }}
-                — {{ \Modules\Shop\Services\ProductService::formatPrice($order->total) }}
+                — {{ $order['status'] }}
+                — {{ $order['total'] }}
             </div>
         @empty
             <p>Заказов пока нет</p>

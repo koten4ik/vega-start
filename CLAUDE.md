@@ -94,10 +94,15 @@ class ProfileViewModel
 {
     public static function data(UserModel $user): array
     {
-        return [
+        $data = [];
+        if (!$user) return false;
+        
+        $data = [
             'name' => $user->name,
             'login' => $user->login,
         ];
+        
+        return $data;
     }
 }
 ```

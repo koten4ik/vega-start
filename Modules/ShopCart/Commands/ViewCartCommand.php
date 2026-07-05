@@ -3,6 +3,7 @@
 namespace Modules\ShopCart\Commands;
 
 use Modules\ShopCart\Services\CartService;
+use Modules\ShopCart\ViewModels\CartViewModel;
 
 class ViewCartCommand
 {
@@ -11,7 +12,7 @@ class ViewCartCommand
         $cart = CartService::currentCart();
 
         return [
-            'cart' => $cart,
+            'cart' => CartViewModel::data($cart),
         ];
     }
 }

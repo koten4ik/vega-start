@@ -7,25 +7,25 @@
 @section('content')
 
     <div class="container-fluid shop-product">
-        <h1>{{ $product->name }}</h1>
+        <h1>{{ $product['name'] }}</h1>
 
-        @if($product->image)
-            <img src="{{ \Illuminate\Support\Facades\Storage::url($product->image) }}" alt="{{ $product->name }}">
+        @if($product['image'])
+            <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}">
         @endif
 
         <div class="shop-product__price">
-            {{ \Modules\Shop\Services\ProductService::formatPrice($product->price) }}
+            {{ $product['price'] }}
         </div>
 
         <div class="shop-product__description">
-            {!! $product->description !!}
+            {!! $product['description'] !!}
         </div>
 
-        @if(\Modules\Shop\Services\ProductService::isInStock($product))
+        @if($product['in_stock'])
             <form action="{{ route('shop.cart.add') }}" method="POST">
                 @csrf
-                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                <input type="number" name="quantity" value="1" min="1" max="{{ $product->quantity }}">
+                <input type="hidden" name="product_id" value="{{ $product['id'] }}">
+                <input type="number" name="quantity" value="1" min="1" max="{{ $product['quantity'] }}">
                 <button type="submit">В корзину</button>
             </form>
         @else

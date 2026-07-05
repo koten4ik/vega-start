@@ -9,7 +9,7 @@
     <div class="container-fluid shop-cart">
         <h1>Корзина</h1>
 
-        @if($cart->items->isEmpty())
+        @if($cart['is_empty'])
             <p>Корзина пуста</p>
         @else
             <table class="shop-cart__table">
@@ -23,23 +23,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($cart->items as $item)
+                @foreach($cart['items'] as $item)
                     <tr>
-                        <td>{{ $item->product->name }}</td>
-                        <td>{{ \Modules\Shop\Services\ProductService::formatPrice($item->price) }}</td>
+                        <td>{{ $item['product']['name'] }}</td>
+                        <td>{{ $item['price'] }}</td>
                         <td>
                             <form action="{{ route('shop.cart.update') }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="cart_item_id" value="{{ $item->id }}">
-                                <input type="number" name="quantity" value="{{ $item->quantity }}" min="0">
+                                <input type="hidden" name="cart_item_id" value="{{ $item['id'] }}">
+                                <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="0">
                                 <button type="submit">Обновить</button>
                             </form>
                         </td>
-                        <td>{{ \Modules\Shop\Services\ProductService::formatPrice($item->subtotal()) }}</td>
+                        <td>{{ $item['subtotal'] }}</td>
                         <td>
                             <form action="{{ route('shop.cart.remove') }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="cart_item_id" value="{{ $item->id }}">
+                                <input type="hidden" name="cart_item_id" value="{{ $item['id'] }}">
                                 <button type="submit">Удалить</button>
                             </form>
                         </td>
@@ -49,7 +49,7 @@
             </table>
 
             <div class="shop-cart__total">
-                Итого: {{ \Modules\Shop\Services\ProductService::formatPrice($cart->total()) }}
+                Итого: {{ $cart['total'] }}
             </div>
 
             <a href="{{ route('shop.order.checkoutPage') }}" class="btn btn-primary">Оформить заказ</a>

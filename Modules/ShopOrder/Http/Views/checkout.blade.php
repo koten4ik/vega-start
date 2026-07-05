@@ -9,20 +9,20 @@
     <div class="container-fluid shop-checkout">
         <h1>Оформление заказа</h1>
 
-        @if($cart->items->isEmpty())
+        @if($cart['is_empty'])
             <p>Корзина пуста</p>
         @else
             <ul class="shop-checkout__items">
-                @foreach($cart->items as $item)
+                @foreach($cart['items'] as $item)
                     <li>
-                        {{ $item->product->name }} × {{ $item->quantity }}
-                        — {{ \Modules\Shop\Services\ProductService::formatPrice($item->subtotal()) }}
+                        {{ $item['product']['name'] }} × {{ $item['quantity'] }}
+                        — {{ $item['subtotal'] }}
                     </li>
                 @endforeach
             </ul>
 
             <div class="shop-checkout__total">
-                Итого: {{ \Modules\Shop\Services\ProductService::formatPrice($cart->total()) }}
+                Итого: {{ $cart['total'] }}
             </div>
 
             <form action="{{ route('shop.order.create') }}" method="POST">

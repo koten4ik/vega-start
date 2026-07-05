@@ -4,6 +4,7 @@ namespace Modules\ShopOrder\Http\Controllers;
 
 use Modules\ShopCart\Commands\ViewCartCommand;
 use Modules\ShopOrder\Commands\CreateOrderCommand;
+use Modules\ShopOrder\Commands\ViewOrderCommand;
 use Modules\ShopOrder\Commands\ViewOrdersCommand;
 use Modules\ShopOrder\Http\Requests\CreateOrderRequest;
 use Modules\ShopOrder\Models\OrderModel;
@@ -25,9 +26,9 @@ class OrderController extends VegaController
         return redirect(route('shop.order.success', $order->id));
     }
 
-    public function successPage(OrderModel $order)
+    public function successPage(OrderModel $order, ViewOrderCommand $viewOrderCommand)
     {
-        return $this->render($this->getModuleName() . '::success', ['order' => $order]);
+        return $this->render($this->getModuleName() . '::success', $viewOrderCommand->execute($order));
     }
 
     public function ordersPage(ViewOrdersCommand $viewOrdersCommand)

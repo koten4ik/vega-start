@@ -3,6 +3,7 @@
 namespace Modules\ShopCatalog\Commands;
 
 use Modules\Shop\Queries\ProductBySlugQuery;
+use Modules\Shop\ViewModels\ProductViewModel;
 
 class ViewProductCommand
 {
@@ -11,7 +12,7 @@ class ViewProductCommand
         $product = ProductBySlugQuery::get($slug)->firstOrFail();
 
         return [
-            'product' => $product,
+            'product' => ProductViewModel::data($product),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace Modules\ShopOrder\Commands;
 
 use Illuminate\Support\Facades\Auth;
 use Modules\ShopOrder\Models\OrderModel;
+use Modules\ShopOrder\ViewModels\OrderViewModel;
 
 class ViewOrdersCommand
 {
@@ -14,7 +15,7 @@ class ViewOrdersCommand
             ->get();
 
         return [
-            'orders' => $orders,
+            'orders' => $orders->map(fn($order) => OrderViewModel::data($order))->all(),
         ];
     }
 }
