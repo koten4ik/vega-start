@@ -25,9 +25,9 @@ class OAuthGoogleService
 	public static function getParams($to_url = false)
 	{
 		$arr = array(
-			'client_id' => '1053017342843-oc3edvqp6n2d8jmkfu75cascbslsuutb.apps.googleusercontent.com',
+			'client_id' => config('services.google.client_id'),
 			'redirect_uri' => route('user.auth.google'),
-			'client_secret' => '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',
+			'client_secret' => config('services.google.client_secret'),
 			'display' => 'popup',
 			'response_type' => 'code',
 			'scope' => 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
