@@ -11,6 +11,6 @@ class ProductService
 
     public static function isInStock($product, int $quantity = 1): bool
     {
-        return $product !== null && $product->is_active && $product->quantity >= $quantity;
+        return $product !== null && $product->display && $product->quantity >= $quantity;
     }
 }

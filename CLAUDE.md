@@ -147,6 +147,24 @@ class ViewProductCommand
 - `$this->sendResponse($data)` — JSON-ответ.
 - `$this->getModuleName()` — возвращает имя модуля из namespace контроллера.
 
+### VegaModel
+
+Базовая модель в `Modules/ZSupport/App/Models/VegaModel.php`. Модели, которым нужны поля видимости/сортировки, наследуют её (`class ProductModel extends VegaModel`), а не `Illuminate\Database\Eloquent\Model` напрямую.
+
+Даёт готовые scope-поля — **не изобретать свои аналоги** (`is_active`, `is_visible`, `enabled` и т.п.), использовать эти:
+- `display` (boolean, колонка в таблице) + `scopeDisplay()` → `Model::display()` вместо `where('is_active', true)`.
+- `rank` (int, колонка в таблице) + `scopeOrderDef()` → `Model::orderDef()` — сортировка по `rank desc, id desc`.
+
+```php
+class ProductModel extends VegaModel
+{
+    // display, rank — не объявлять кастомные scope под них, брать из VegaModel
+}
+```
+```php
+ProductModel::display()->orderDef()->get();
+```
+
 ## Проверка
 
 После каждого изменения/создания PHP-файла — сразу и молча (без вопроса на это пользователю) прогонять `php -l` на изменённый файл, а где применимо — реальный тест (рендер вьюхи, выполнение команды и т.п. через `artisan tinker`). Не спрашивать разрешения на запуск проверки/теста — это часть обычного рабочего процесса, а не отдельное действие, требующее подтверждения.
@@ -162,6 +180,7 @@ class ViewProductCommand
 - Не писать бизнес-логику в контроллерах — выносить в Commands.
 - Не передавать Eloquent-модель напрямую во вьюху — преобразовывать через `*ViewModel::data()`.
 - Не использовать implicit route-model-binding (тайп-хинт модели в параметре метода контроллера) — контроллер получает id/slug, Command сам делает `Model::findOrFail()`.
+- Не заводить свои поля/scope для видимости (`is_active`, `is_visible` и т.п.) — использовать `display`/`scopeDisplay()` из `VegaModel`.
 - Не создавать файлы вне `Modules/` (кроме `public/css/`, `public/js/`, `routes/web.php` при крайней необходимости).
 
 ## Именование

@@ -8,7 +8,7 @@ class ProductsByCategoryQuery
 {
     public static function get($categorySlug = null)
     {
-        $query = ProductModel::active();
+        $query = ProductModel::display();
 
         if ($categorySlug !== null) {
             $query->whereHas('category', function ($query) use ($categorySlug) {

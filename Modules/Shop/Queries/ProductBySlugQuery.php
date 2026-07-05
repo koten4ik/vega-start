@@ -8,6 +8,6 @@ class ProductBySlugQuery
 {
     public static function get($slug)
     {
-        return ProductModel::active()->where('slug', $slug);
+        return ProductModel::display()->where('slug', $slug);
     }
 }

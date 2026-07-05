@@ -49,7 +49,7 @@ class ShopSeeder extends Seeder
                         'description' => 'Описание товара «' . $product['name'] . '». Тестовые данные для проверки страниц магазина.',
                         'price' => $product['price'],
                         'quantity' => $product['quantity'],
-                        'is_active' => true,
+                        'display' => true,
                     ]
                 );
             }

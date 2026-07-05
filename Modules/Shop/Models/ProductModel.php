@@ -18,22 +18,17 @@ class ProductModel extends VegaModel
         'price',
         'quantity',
         'image',
-        'is_active',
+        'display',
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
-        'is_active' => 'boolean',
+        'display' => 'boolean',
     ];
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(CategoryModel::class, 'category_id');
-    }
-
-    public function scopeActive(Builder $query): Builder
-    {
-        return $query->where('is_active', true);
     }
 
     public function scopeInStock(Builder $query): Builder
