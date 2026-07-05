@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class VegaModel extends Model
 {
 
-    public $abc_module = 'empty';
-
     protected $fillable = [
     ];
 
