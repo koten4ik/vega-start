@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@push('styles')
+    <link rel="stylesheet" href="{{\Modules\ZSupport\App\Helpers\H::mtimeFix('/css/shop.css')}}"/>
+@endpush
+
 @section('content')
 
     <div class="container-fluid shop-orders">

@@ -30,21 +30,21 @@
 
                 <div class="form-group">
                     <label>Имя: <span class="form-required">*</span></label>
-                    <input type="text" name="name" value="{{ old('name') }}" required
+                    <input type="text" name="name" value="{{ old('name', auth()->user()->name ?? '') }}" required
                            class="form-control {{ $errors->has('name') ? 'input-error' : '' }}">
                     @error('name') <span class="text-error">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="form-group">
                     <label>Телефон: <span class="form-required">*</span></label>
-                    <input type="text" name="phone" value="{{ old('phone') }}" required
+                    <input type="text" name="phone" value="{{ old('phone', auth()->user()->profile_phone ?? '') }}" required
                            class="form-control {{ $errors->has('phone') ? 'input-error' : '' }}">
                     @error('phone') <span class="text-error">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="form-group">
                     <label>Email:</label>
-                    <input type="text" name="email" value="{{ old('email') }}"
+                    <input type="text" name="email" value="{{ old('email', auth()->user()->email ?? '') }}"
                            class="form-control {{ $errors->has('email') ? 'input-error' : '' }}">
                     @error('email') <span class="text-error">{{ $message }}</span> @enderror
                 </div>

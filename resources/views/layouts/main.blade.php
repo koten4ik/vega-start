@@ -37,6 +37,7 @@
 
         <div class="site-header__account">
             @auth
+                <a href="{{ route('user.cabinet') }}">Профиль</a>
                 <a href="{{ route('shop.order.list') }}">Мои заказы</a>
                 <a href="{{ route('user.auth.logout') }}">Выход</a>
             @else

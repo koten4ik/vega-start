@@ -32,10 +32,12 @@ Modules/
     ├── Queries/           # Query-объекты для выборок из БД
     │   └── SomeByFieldQuery.php
     ├── Rules/             # Validation Rules
-    └── Services/          # Сервисы (вспомогательная логика)
+    ├── Services/          # Сервисы (вспомогательная логика)
+    └── ViewModels/        # Преобразование модели в массив полей для вьюхи
+        └── SomeViewModel.php
 ```
 
-> Папки `Commands`, `Queries`, `Models`, `Services`, `Rules` создаются по необходимости — не все обязательны.
+> Папки `Commands`, `Queries`, `Models`, `Services`, `Rules`, `ViewModels` создаются по необходимости — не все обязательны.
 
 ### Паттерны
 
@@ -86,6 +88,30 @@ class UserByEmailQuery
 return $this->render('ModuleName::blade_name', $data);
 ```
 
+**ViewModel** — модель никогда не передаётся во вьюху напрямую. Преобразование модели в массив полей для вьюхи делается через класс `*ViewModel` с одним статическим методом `data()`:
+```php
+class ProfileViewModel
+{
+    public static function data(UserModel $user): array
+    {
+        return [
+            'name' => $user->name,
+            'login' => $user->login,
+        ];
+    }
+}
+```
+Обычно вызывается из Command, который отдаёт результат во вьюху:
+```php
+public function execute()
+{
+    return [
+        'profile' => ProfileViewModel::data(Auth::user()),
+    ];
+}
+```
+Во вьюхе используется `$profile['name']`, а не `$user->name`.
+
 **Blade-имя** — формат `ModuleName::file_name` (без папки Views, Laravel резолвит сам через сервис-провайдер).
 
 ### VegaController
@@ -105,6 +131,7 @@ return $this->render('ModuleName::blade_name', $data);
 - **`Modules/ZSupport/App/`** — это движок проекта. Не трогать, не изменять файлы внутри.
 - Не использовать `view()` напрямую в контроллерах — только `$this->render()`.
 - Не писать бизнес-логику в контроллерах — выносить в Commands.
+- Не передавать Eloquent-модель напрямую во вьюху — преобразовывать через `*ViewModel::data()`.
 - Не создавать файлы вне `Modules/` (кроме `public/css/`, `public/js/`, `routes/web.php` при крайней необходимости).
 
 ## Именование
@@ -119,5 +146,6 @@ return $this->render('ModuleName::blade_name', $data);
 | Model | `UserModel`, `PasswordResetTokenModel` |
 | Service | `UserService`, `OAuthGoogleService` |
 | Rule | `EmailRule`, `UserPasswordRule` |
+| ViewModel | `ProfileViewModel`, `OrderViewModel` (метод всегда `data()`) |
 | Blade | `login.blade.php`, `change_password.blade.php` (snake_case) |
 | Route name | `user.auth.login`, `user.cabinet` (dot-notation, с префиксом модуля) |
