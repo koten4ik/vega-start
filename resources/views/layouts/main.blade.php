@@ -58,6 +58,9 @@
         <nav class="site-footer__nav">
             <a href="{{ route('shop.catalog.page') }}">Каталог</a>
             <a href="{{ route('shop.cart.page') }}">Корзина</a>
+            @if(\Illuminate\Support\Facades\Route::has('page.contacts'))
+                <a href="{{ route('page.contacts') }}">Контакты</a>
+            @endif
         </nav>
     </div>
 </footer>

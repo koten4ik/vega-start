@@ -13,7 +13,7 @@ class PageController extends VegaController
 {
     public function viewPage(Request $request, ViewSitePageCommand $viewSitePageCommand)
     {
-        $path = '/'.$request->path();
+        $path = $request->path();
 		$data = $viewSitePageCommand->execute($path);
 
         return $this->render($this->getModuleName() . '::page', $data);

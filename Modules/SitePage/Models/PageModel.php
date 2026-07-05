@@ -3,7 +3,6 @@
 namespace Modules\SitePage\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Modules\SitePage\Enums\PageDomain;
 use Modules\SitePage\Enums\PageModule;
 use Modules\ZSupport\App\Models\VegaModel;
 
@@ -12,15 +11,14 @@ class PageModel extends VegaModel
     public $table = 'pages';
 
     protected $fillable = [
-        'name',
+        'title',
         'slug',
-        'text',
-        'domain',
+        'content',
         'module',
         'display',
         'display_menu',
         'display_menu_footer',
-        'display_menu_footer2',
+        'is_indexable',
         'rank',
         'meta_title',
         'meta_description',
@@ -30,12 +28,12 @@ class PageModel extends VegaModel
         'display' => 'boolean',
         'display_menu' => 'boolean',
         'display_menu_footer' => 'boolean',
-        'display_menu_footer2' => 'boolean',
+        'is_indexable' => 'boolean',
     ];
 
     public function getUrl()
     {
-        $url = $this->slag;
+        $url = $this->slug;
         if ($this->module == 'index') $url = '';
 
         return request()->getSchemeAndHttpHost() . '/' . $url;
