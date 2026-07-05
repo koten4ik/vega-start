@@ -1,3 +1,20 @@
+/*============= единый контейнер страницы ===========*/
+.container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+    color: #222;
+}
+
+.container-fluid h1 {
+    font-size: 28px;
+    margin-bottom: 24px;
+}
+
+.container-fluid p {
+    margin-bottom: 16px;
+}
+
 .fl {
     float: left;
 }

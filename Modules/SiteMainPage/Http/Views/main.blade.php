@@ -6,7 +6,9 @@
 
 @section('content')
 
-    start
+    <div class="container-fluid">
+        start
+    </div>
 
 @endsection
 

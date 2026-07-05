@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <div class="auth-page">
+    <div class="container-fluid auth-page">
         <div class="auth-card">
             <h1>Авторизация</h1>
 

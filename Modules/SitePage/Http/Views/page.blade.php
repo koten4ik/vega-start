@@ -1,9 +1,5 @@
 @extends('layouts.main')
 
-@push('styles')
-    <style></style>
-@endpush
-
 @section('content')
 
     <div class="container-fluid">
