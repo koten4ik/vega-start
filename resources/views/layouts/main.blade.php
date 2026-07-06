@@ -55,6 +55,7 @@
 <footer class="site-footer">
     <div class="site-footer__inner">
         <div class="site-footer__copy">&copy; {{ date('Y') }} Vega Start. Все права защищены.</div>
+        {{ \Modules\ZSupport\App\Helpers\Dbg::timeFromStart()  }}
         <nav class="site-footer__nav">
             <a href="{{ route('shop.catalog.page') }}">Каталог</a>
             <a href="{{ route('shop.cart.page') }}">Корзина</a>
