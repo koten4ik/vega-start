@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             Modules\ZSupport\App\Middleware\RegisterRequestMiddleware::class,
         ]);
+        $middleware->redirectGuestsTo(fn (Request $request) => route('user.auth.loginPage'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->report(function (Throwable $exception) {
