@@ -73,4 +73,24 @@ class UserService
     {
         return preg_match('/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/', $value);
     }
+
+    const LOGIN_AS_LINK_TTL = 120; // секунд
+    public static function loginAsSecret()
+    {
+        return (string) ($_ENV['APP_KEY'] ?? $_SERVER['APP_KEY'] ?? getenv('APP_KEY') ?: '');
+    }
+    public static function loginAsSignature($userId, $expires)
+    {
+        return hash_hmac('sha256', $userId . '|' . $expires, self::loginAsSecret());
+    }
+    public static function getLoginAsUrl($user, $ttlSeconds = self::LOGIN_AS_LINK_TTL)
+    {
+        $expires = time() + $ttlSeconds;
+
+        return route('user.auth.loginas', [
+            'id' => $user->id,
+            'expires' => $expires,
+            'signature' => self::loginAsSignature($user->id, $expires),
+        ]);
+    }
 }
