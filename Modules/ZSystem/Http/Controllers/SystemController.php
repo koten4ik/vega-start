@@ -5,7 +5,6 @@ namespace Modules\ZSystem\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\ZSupport\App\Controllers\VegaController;
-use Modules\ZSystem\Commands\ATempCommand;
 use Modules\ZSystem\Commands\GetLetterCommand;
 use Modules\ZSystem\Commands\SendMailCommand;
 use Modules\ZSystem\Commands\StatsCommand;
@@ -14,8 +13,6 @@ use Modules\ZSystem\Commands\ViewCountDiagram3Command;
 use Modules\ZSystem\Commands\ViewCountDiagram2Command;
 use Modules\ZSystem\Commands\ViewCountDiagramCommand;
 use Modules\User\Services\UserRoleService;
-use Modules\Post\Services\BlogPostWeeklySender;
-use Modules\Post\Services\BlogPostDraftSender;
 
 
 class SystemController extends VegaController
@@ -24,7 +21,7 @@ class SystemController extends VegaController
 
 	public function update(Request $request, UpdateSystemCommand $updateSystemCommand)
 	{
-		//if (UserRoleService::isAdmin(Auth::user()) === false) abort(405);
+		if (UserRoleService::isAdmin(Auth::user()) === false) abort(405);
 
 		$data = $updateSystemCommand->execute($request);
 

@@ -5,29 +5,12 @@ namespace Modules\ZSupport\Domain;
 
 
 use Illuminate\Console\Scheduling\Schedule;
-use Modules\BusinessSubscription\Commands\ExpireSubscriptionsCommand;
-use Modules\Post\Commands\SetPopularFlagCommand;
-use Modules\SiteSearch\Services\SearchService;
-use Modules\User\Commands\DeleteOldUserActionsCommand;
-use Modules\Post\Commands\DeleteOldViewCheckPostCommand;
-use Modules\User\Commands\DetectSuspiciousActionsCommand;
-use Modules\User\Commands\DetectSuspiciousViewsCommand;
-use Modules\UserRating\Commands\CalcUserRatingCommand;
 use Modules\ZSupport\App\Commands\DeleteOldLogsCommand;
 use Modules\ZSupport\App\Commands\DeleteOldMailsCommand;
 use Modules\ZSupport\App\Commands\DeleteOldRequestsCommand;
-use Modules\ZSupport\App\Commands\DeleteOldSessionStatsCommand;
-use Modules\ZSupport\App\Commands\IndexElasticCommand;
 use Modules\ZSupport\App\Commands\MailPushCommand;
 use Modules\ZSupport\App\Commands\NotifyErrors500Command;
-use Modules\ZSupport\App\Services\Logger\Log;
 use Modules\ZSupport\App\Services\ScheduleCheckService;
-use Modules\UserNotification\Commands\DeleteOldNotificationsCommand;
-use Modules\UserAccountRegister\Commands\DeleteNoActiveUserCommand;
-use Modules\Post\Commands\SendBlogPostDraftReminderCommand;
-use Modules\Post\Commands\SendBlogPostTelegramCommand;
-use Modules\Post\Commands\SendBlogPostTelegramFreshCommand;
-use Modules\Post\Commands\SendBlogPostWeeklyCommand;
 
 //регистрация - bootstrap/app.php
 /*->withSchedule(function (Schedule $schedule) {

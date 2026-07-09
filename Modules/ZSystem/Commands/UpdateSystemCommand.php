@@ -44,17 +44,6 @@ class UpdateSystemCommand
 			$output = Artisan::output();
 		}
 
-        if (isset($request->filament)) {
-            //todo пока не работает, то надо в консоли
-            //php artisan make:filament-resource SiteDocsModel -n --generate
-            Artisan::call('make:filament-resource', [
-                $request->name,
-                '--model-namespace' => $request->path = '\\Modules\\MlmNetwork\\Models',
-                '--no-interaction' => true, // аналог -n
-                '--generate' => true,
-            ]);
-            $output = Artisan::output();
-        }
 
 		if (isset($request->docs)) {
 			$process = new Process(['php', base_path('artisan'), 'scribe:generate']);

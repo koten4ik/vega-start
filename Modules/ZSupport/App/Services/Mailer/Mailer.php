@@ -7,7 +7,6 @@ use Modules\ZSupport\App\Exceptions\LogicException;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
-use Modules\Post\Models\PostModel;
 use Modules\ZSupport\App\Services\Config;
 use Modules\ZSupport\App\Models\LetterModel;
 use Modules\ZSupport\App\Models\LetterTemplateModel;
@@ -144,53 +143,7 @@ class Mailer
 				'password' => 'testPass'
 			];
 		}
-		if(in_array($template_id, ['user_event_post_reject','user_event_post_deleted','user_event_comment_deleted','user_event_post_draft'])){
-			$post = PostModel::orderBy('id', 'desc')->first();
-			$data['vals'] = [
-				'link_post' => $post->getUrl(),
-				'name_post' => $post->name
-			];
-		}
-		if($template_id=='user_event_post_weekly'){
-			$currentWeekStart = Carbon::now()->startOfWeek(Carbon::MONDAY);
-			$previousWeekStart = $currentWeekStart->copy()->subWeek();
 
-			// Используем ту же логику, что и в BlogPostWeeklySender
-			$posts = PostModel::query()
-				->display()
-				->where('popular', true)
-				->where('popular_mode', '!=', PostModel::POPULAR_MODE_EXCLUDED)
-				->whereNotNull('published_at')
-				->where('published_at', '>=', $previousWeekStart)
-				->where('published_at', '<', $currentWeekStart)
-				->whereNotNull('rating')
-				->orderBy('rating', 'desc')
-				->limit(8)
-				->get();
-
-			if ($posts->isEmpty()) {
-				// Тестовые письма, если нет популярных
-				$posts = PostModel::query()
-					->display()
-					->where('popular', true)
-					->where('popular_mode', '!=', PostModel::POPULAR_MODE_EXCLUDED)
-					->whereNotNull('published_at')
-					->orderBy('published_at', 'desc')
-					->limit(8)
-					->get();
-			}
-
-			$data['vals'] = [
-				'posts' => $posts
-			];
-		}
-		if($template_id=='user_event_post_draft'){
-			$post = PostModel::orderBy('id', 'desc')->first();
-			$data['vals'] = [
-				'link_post' => $post ? $post->getUrlRough() : 'http://test.com',
-				'name_post' => $post ? $post->name : 'Тестовый пост'
-			];
-		}
 
 
 		return $data;

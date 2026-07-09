@@ -6,9 +6,7 @@ namespace Modules\User\Rules;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Auth;
-use Modules\Post\Models\TagModel;
 use Modules\ZSupport\App\Helpers\Str;
-use Modules\ZSupport\Domain\Services\RouteService;
 use Modules\User\Models\UserModel;
 
 class UserLoginRule implements ValidationRule
